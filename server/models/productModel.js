@@ -5,11 +5,12 @@ const ProductSchema = new mongoose.Schema(
     name: {
       type: String,
       required: [true, "Product name is required"],
+      unique: true,
       trim: true,
     },
     description: {
       type: String,
-      required: [true, "Product description is required"],
+      default: "",
     },
     price: {
       type: Number,
@@ -20,9 +21,9 @@ const ProductSchema = new mongoose.Schema(
       required: [true, "Stock quantity is required"],
     },
     category: {
-      type: mongoose.schema.Type.ObjectId,
-      Ref: category, // it is the link of category model
-      required: true,
+      type: String,
+      required: [true, "Category is required"],
+      default: "DryFruits",
     },
     imageUrl: {
       type: [String],

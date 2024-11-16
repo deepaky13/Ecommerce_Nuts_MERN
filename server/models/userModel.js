@@ -1,71 +1,74 @@
 import mongoose from "mongoose";
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema(
+  {
     userName: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        unique: true,
-        required: true,
+      type: String,
+      unique: true,
+      required: true,
     },
     password: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     mobileNo: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     address: [
-        {
-            street: String,
-            city: String,
-            state: String,
-            pinCode: String,
-            country: String,
-        }
+      {
+        street: String,
+        city: String,
+        state: String,
+        pinCode: String,
+        country: String,
+      },
     ],
     profileImage: {
-        type: String,
-        default: ''
+      type: String,
+      default: "",
     },
     role: {
-        type: String,
-        enum: ['user', 'admin'],
-        default: 'user',
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
     },
     orderHistory: [
-        {
-            orderId: mongoose.Schema.Types.ObjectId,
-            items: [
-                {
-                    productId: mongoose.Schema.Types.ObjectId,
-                    quantity: Number,
-                }
-            ],
-            totalAmount: Number,
-            status: {
-                type: String,
-                enum: ['pending', 'shipped', 'delivered', 'cancelled'],
-                default: 'pending',
-            },
-            date: { type: Date, default: Date.now }
-        }
+      {
+        orderId: mongoose.Schema.Types.ObjectId,
+        items: [
+          {
+            productId: mongoose.Schema.Types.ObjectId,
+            quantity: Number,
+          },
+        ],
+        totalAmount: Number,
+        status: {
+          type: String,
+          enum: ["pending", "shipped", "delivered", "cancelled"],
+          default: "pending",
+        },
+        date: { type: Date, default: Date.now },
+      },
     ],
     wishlist: [
-        {
-            productId: mongoose.Schema.Types.ObjectId,
-            addedAt: { type: Date, default: Date.now }
-        }
+      {
+        productId: mongoose.Schema.Types.ObjectId,
+        addedAt: { type: Date, default: Date.now },
+      },
     ],
     resetPasswordToken: { type: String },
     resetPasswordExpire: { type: Date },
     otp: { type: String },
     otpExpiresAt: { type: Date },
-}, {
-    timestamps: true
-});
+  },
+  {
+    timestamps: true,
+  }
+);
 
 export default mongoose.model("User", UserSchema);
